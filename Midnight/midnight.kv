@@ -1,0 +1,141 @@
+#:kivy 1.0.9
+
+MidnightApp:
+
+<MidnightApp>:
+    MidnightGameScreenStart:
+
+    MidnightGameScreenRoll:
+
+    MidnightGameScreenRollResults:
+
+    MidnightGameScreenKeptDie:
+
+
+<MidnightGameScreenStart>:
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "horizontal"
+            Label:
+                text: "Midnight"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            Button:
+                text: "Start Game"
+                on_release:  root.manager.current = "screen_roll"
+            BoxLayout:
+                orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            
+
+<MidnightGameScreenRoll>:
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            Button:
+                text: "Roll"
+                on_press: root.rollDice()
+                on_release:  root.manager.current = "screen_roll_results"
+            BoxLayout:
+                orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+
+
+<MidnightGameScreenRollResults>:
+
+
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            Button:
+                text: "Keep Die"
+            Button:
+                text: "Keep Die"
+            Button:
+                text: "Keep Die"
+            Button:
+                text: "Keep Die"
+            Button:
+                text: "Keep Die"
+            Button:
+                text: "Keep Die"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            Button:
+                text: "Done"
+                on_release: root.manager.current = "screen_kept_die"
+            BoxLayout:
+                orientation: "horizontal"
+
+
+<MidnightGameScreenKeptDie>:
+    BoxLayout:
+        orientation: "vertical"
+
+        BoxLayout:
+            orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+
+        BoxLayout:
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "horizontal"
+            Button:
+                text: "Roll Again"
+                on_release: root.manager.current = "screen_roll"
+            BoxLayout:
+                orientation: "horizontal"
+        
