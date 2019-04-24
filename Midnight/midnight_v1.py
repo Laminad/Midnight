@@ -1,4 +1,5 @@
 from random import randint
+from time import sleep
 
 class midnight:
 
@@ -11,7 +12,7 @@ class midnight:
 		self.keptDie = []
 		self.pickedBefore = []
 		self.dieCheck = 0
-		self.totalDie = 0
+		self.dieKeptThisTurn = 0
 		
 	def userInput(self):
 		try:
@@ -27,6 +28,9 @@ class midnight:
 			self.userInput()
 		elif self.input > 6 or self.input < 0:
 			print("\nC'mon it's 0 - 6\n")
+			self.userInput()
+		elif self.input == 0 and self.dieKeptThisTurn == 0:
+			print("\nYou need to pick at least one.\n")
 			self.userInput()
 		
 	def rollDice(self):
@@ -46,33 +50,40 @@ class midnight:
 			if self.input == 1:
 				self.keptDie.append(self.dieSet['die1'])
 				self.pickedBefore.append(self.input)
-				self.dieCheck += 1 
+				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die1']
 			elif self.input == 2:
 				self.keptDie.append(self.dieSet['die2'])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die2']
 			elif self.input == 3:
 				self.keptDie.append(self.dieSet['die3'])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die3']
 			elif self.input == 4:
 				self.keptDie.append(self.dieSet['die4'])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die4']
 			elif self.input == 5:
 				self.keptDie.append(self.dieSet['die5'])
 				self.pickedBefore.append(self.input)
-				self.dieCheck += 1 
+				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die5']
 			elif self.input == 6:
 				self.keptDie.append(self.dieSet['die6'])
 				self.pickedBefore.append(self.input)
-				self.dieCheck += 1 
+				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
 				del self.dieSet['die6']
+		self.dieKeptThisTurn  = 0
 		self.input = 10
 				
 	def ruleBook(self):
@@ -111,9 +122,11 @@ class midnight:
 		self.input = 10
 		self.gameEnd = False
 		self.keptDie = []
+		print("-" + " "*33 + "AI's Turn!"+ " "*32 + "-\n")
 		while self.gameEnd == False:
 			self.rollDice()
 			self.printDie()
+			print("-"+" "*75+"-\n")
 			keyValues = self.dieSet.keys()
 			lenCheck = len(self.dieSet)
 			for i in keyValues:
@@ -141,6 +154,7 @@ class midnight:
 					self.keptDie.append(keeper)
 					delKey = ' '
 					keeper = 0
+			sleep(2)
 			self.printKept()
 			self.ruleBook()
 		self.aScore()
@@ -174,7 +188,7 @@ class midnight:
 		print(self.keptDie)
 		print("")
 		print("-"*77+"\n")
-		
+
 	def welcome (self):
 		print("-"*77)
 		print("-" + " "*33 + "Midnight" + " "*34 + "-")
@@ -182,8 +196,8 @@ class midnight:
 		print("-" + " "*5 + " The object of the game is to get a 1 and a 4 and 24. That's it. " + " "*5 + "-")
 		print("-" + " "*75 + "-")
 		print("-"*77+"\n")
+		print("-" + " "*30 + "Players's Turn!"+ " "*30 + "-\n")
 		
-
 
 if __name__ == '__main__':
 	m1 = midnight()
