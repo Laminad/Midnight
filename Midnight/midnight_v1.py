@@ -19,6 +19,29 @@ class midnight:
 		self.pickedBefore = []
 		self.dieCheck = 0
 		self.dieKeptThisTurn = 0
+
+	def rollDice(self):
+		self.setDieSetKeys()
+		for key in self.dieSet_keys:
+			self.dieSet[key] = randint(1,6)
+
+	def setDieSetKeys(self): 
+		self.dieSet_keys = self.dieSet.keys()
+			
+	def keepDie(self):
+		while self.input != 0:
+			if self.dieCheck == 6:
+				print("\nAll die have been kept. Calculating score.\n")
+				break
+			self.userInput()
+			if self.input != 0:
+				self.keptDie.append(self.dieSet[self.input])
+				self.pickedBefore.append(self.input)
+				self.dieCheck += 1
+				self.dieKeptThisTurn +=1
+				del self.dieSet[self.input]
+		self.dieKeptThisTurn  = 0
+		self.input = 10
 		
 	def userInput(self):
 		try:
@@ -39,85 +62,6 @@ class midnight:
 			print("\nYou need to pick at least one.\n")
 			self.userInput()
 		
-	def rollDice(self):
-		self.setDieSetKeys()
-		for key in self.dieSet_keys:
-			self.dieSet[key] = randint(1,6)
-
-	def setDieSetKeys(self): 
-		self.dieSet_keys = self.dieSet.keys()
-			
-	def keepDie(self):
-		while self.input != 0:
-			if self.dieCheck == 6:
-				print("\nAll die have been kept. Calculating score.\n")
-				break
-			self.userInput()
-			if self.input == 1:
-				self.keptDie.append(self.dieSet[1])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[1]
-			elif self.input == 2:
-				self.keptDie.append(self.dieSet[2])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[2]
-			elif self.input == 3:
-				self.keptDie.append(self.dieSet[3])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[3]
-			elif self.input == 4:
-				self.keptDie.append(self.dieSet[4])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[4]
-			elif self.input == 5:
-				self.keptDie.append(self.dieSet[5])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[5]
-			elif self.input == 6:
-				self.keptDie.append(self.dieSet[6])
-				self.pickedBefore.append(self.input)
-				self.dieCheck += 1
-				self.dieKeptThisTurn +=1
-				del self.dieSet[6]
-		self.dieKeptThisTurn  = 0
-		self.input = 10
-				
-	def ruleBook(self):
-		if len(self.keptDie) == 6: 
-			self.gameEnd = True
-		else: 
-			self.gameEnd = False
-	
-	def pScore(self):
-		if 1 not in self.keptDie or 4 not in self.keptDie:
-			self.playerScore = -1
-		else:
-			i = 0
-			while i <= 5:
-				self.playerScore = self.playerScore + self.keptDie[i]
-				i += 1
-			self.playerScore = self.playerScore - 5
-			
-	def aScore(self):
-		if 1 not in self.keptDie or 4 not in self.keptDie:
-			self.AIScore = -1
-		else:
-			i = 0
-			while i <= 5:
-				self.AIScore = self.AIScore + self.keptDie[i]
-				i += 1
-			self.AIScore = self.AIScore - 5
-		
 	def AI(self):
 		keyValues = []
 		keeper = 0
@@ -132,7 +76,7 @@ class midnight:
 		while self.gameEnd == False:
 			self.rollDice()
 			self.printDie()
-			print("-"+" "*75+"-\n")
+			print("-"*77+"\n")
 			keyValues = self.dieSet.keys()
 			lenCheck = len(self.dieSet)
 			for i in keyValues:
@@ -160,10 +104,16 @@ class midnight:
 					self.keptDie.append(keeper)
 					delKey = ' '
 					keeper = 0
-			sleep(2)
+			sleep(4)
 			self.printKept()
 			self.ruleBook()
 		self.aScore()
+
+	def ruleBook(self):
+		if len(self.keptDie) == 6: 
+			self.gameEnd = True
+		else:
+			self.gameEnd = False
 		
 	def winner(self):
 		if self.playerScore == -1 and self.AIScore == -1:
@@ -178,6 +128,26 @@ class midnight:
 			print("AI Wins!\nPlayer Score: " + str(self.playerScore)+"\nAI Score: " + str(self.AIScore)+"\n")
 		elif self.playerScore == self.AIScore:
 			print("Tie!\nPlayer Score: " + str(self.playerScore)+"\nAI Score: " + str(self.AIScore)+"\n")
+
+	def pScore(self):
+		if 1 not in self.keptDie or 4 not in self.keptDie:
+			self.playerScore = -1
+		else:
+			i = 0
+			while i <= 5:
+				self.playerScore = self.playerScore + self.keptDie[i]
+				i += 1
+			self.playerScore = self.playerScore - 5
+			
+	def aScore(self):
+		if 1 not in self.keptDie or 4 not in self.keptDie:
+			self.AIScore = -1
+		else:
+			i = 0
+			while i <= 5:
+				self.AIScore = self.AIScore + self.keptDie[i]
+				i += 1
+			self.AIScore = self.AIScore - 5
 		
 	def printDie(self):
 		print("-"*77)
@@ -213,6 +183,7 @@ class midnight:
 		for i in self.keptDie:
 			self.AsciiPrint(i)
 		print("")
+		print("-"*77+"\n")
 		print("-"*77+"\n")
 
 	def AsciiPrint(self, value):
