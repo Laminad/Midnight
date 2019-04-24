@@ -4,7 +4,13 @@ from time import sleep
 class midnight:
 
 	def __init__(self):
-		self.dieSet = {'die1' : 0, 'die2' : 0, 'die3' : 0, 'die4' : 0, 'die5' : 0, 'die6' : 0}
+		self.one = "\n#######\n#     #\n#  *  #\n#     #\n#######\n"
+		self.two = "\n#######\n#   * #\n#     #\n# *   #\n#######\n"
+		self.three = "\n#######\n#   * #\n#  *  #\n# *   #\n#######\n"
+		self.four = "\n#######\n# * * #\n#     #\n# * * #\n#######\n"
+		self.five = "\n#######\n# * * #\n#  *  #\n# * * #\n#######\n"
+		self.six = "\n#######\n# * * #\n# * * #\n# * * #\n#######\n"
+		self.dieSet = {1 : 0, 2 : 0, 3 : 0, 4 : 0, 5 : 0, 6 : 0}
 		self.playerScore = 0
 		self.AIScore = 0
 		self.input = 10
@@ -48,41 +54,41 @@ class midnight:
 				break
 			self.userInput()
 			if self.input == 1:
-				self.keptDie.append(self.dieSet['die1'])
+				self.keptDie.append(self.dieSet[1])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die1']
+				del self.dieSet[1]
 			elif self.input == 2:
-				self.keptDie.append(self.dieSet['die2'])
+				self.keptDie.append(self.dieSet[2])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die2']
+				del self.dieSet[2]
 			elif self.input == 3:
-				self.keptDie.append(self.dieSet['die3'])
+				self.keptDie.append(self.dieSet[3])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die3']
+				del self.dieSet[3]
 			elif self.input == 4:
-				self.keptDie.append(self.dieSet['die4'])
+				self.keptDie.append(self.dieSet[4])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die4']
+				del self.dieSet[4]
 			elif self.input == 5:
-				self.keptDie.append(self.dieSet['die5'])
+				self.keptDie.append(self.dieSet[5])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die5']
+				del self.dieSet[5]
 			elif self.input == 6:
-				self.keptDie.append(self.dieSet['die6'])
+				self.keptDie.append(self.dieSet[6])
 				self.pickedBefore.append(self.input)
 				self.dieCheck += 1
 				self.dieKeptThisTurn +=1
-				del self.dieSet['die6']
+				del self.dieSet[6]
 		self.dieKeptThisTurn  = 0
 		self.input = 10
 				
@@ -118,7 +124,7 @@ class midnight:
 		delKey = ' '
 		lenCheck = 0
 		trashCollector = []
-		self.dieSet = {'die1' : 0, 'die2' : 0, 'die3' : 0, 'die4' : 0, 'die5' : 0, 'die6' : 0}
+		self.dieSet = {1 : 0, 2 : 0, 3 : 0, 4 : 0, 5 : 0, 6 : 0}
 		self.input = 10
 		self.gameEnd = False
 		self.keptDie = []
@@ -177,7 +183,26 @@ class midnight:
 		print("-"*77)
 		print("-" + " "*33 + "Roll Cup" + " "*34 + "-")
 		print("-"*77+"\n")
-		print(self.dieSet)
+		self.setDieSetKeys()
+		for key in self.dieSet_keys:
+			if key == 1:
+				print("\nDie 1")
+				self.AsciiPrint(self.dieSet[key])
+			elif key == 2:
+				print("\nDie 2")
+				self.AsciiPrint(self.dieSet[key])
+			elif key == 3:
+				print("\nDie 3")
+				self.AsciiPrint(self.dieSet[key])
+			elif key == 4:
+				print("\nDie 4")
+				self.AsciiPrint(self.dieSet[key])
+			elif key == 5:
+				print("\nDie 5")
+				self.AsciiPrint(self.dieSet[key])
+			elif key == 6:
+				print("\nDie 6")
+				self.AsciiPrint(self.dieSet[key])
 		print("")
 		print("-"*77+"\n")
 		
@@ -185,9 +210,24 @@ class midnight:
 		print("-"*77)
 		print("-" + " "*33 + "Kept Die" + " "*34 + "-")
 		print("-"*77+"\n")
-		print(self.keptDie)
+		for i in self.keptDie:
+			self.AsciiPrint(i)
 		print("")
 		print("-"*77+"\n")
+
+	def AsciiPrint(self, value):
+		if value == 1:
+			print(self.one)
+		elif value == 2:
+			print(self.two)
+		elif value == 3:
+			print(self.three)
+		elif value == 4:
+			print(self.four)
+		elif value == 5:
+			print(self.five)
+		elif value == 6:
+			print(self.six)
 
 	def welcome (self):
 		print("-"*77)
@@ -197,7 +237,7 @@ class midnight:
 		print("-" + " "*75 + "-")
 		print("-"*77+"\n")
 		print("-" + " "*30 + "Players's Turn!"+ " "*30 + "-\n")
-		
+
 
 if __name__ == '__main__':
 	m1 = midnight()
